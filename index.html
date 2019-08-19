@@ -1,0 +1,122 @@
+Just starting this blog, with a simple processing.js code<br />
+<br />
+<br />
+
+
+
+<script src="processing.min.js"></script>
+
+<script type="text/processing" data-processing-target="processing-canvas1">
+
+void setup() {
+  size(200, 200);
+  background(150);
+  stroke(255);
+  ellipse(50, 50, 50, 50);
+  ellipse(150, 50, 50, 50);
+}
+
+</script>
+
+<canvas id="processing-canvas1"> </canvas>
+
+<br />
+
+
+<script type="text/processing" data-processing-target="processing-canvas0">
+int x=200;
+
+void setup() {
+  size(500, 500);
+}
+
+void draw() {
+
+  background(255); // clear screen (white)
+
+  int g = 50; // grid size;
+  stroke(235);
+  strokeWeight(2);
+  draw_grid(g, g);
+
+  stroke(0);
+  strokeWeight(3);
+  draw_rectangle();
+}
+
+void draw_triangle(int fx, int x, int y, int w, int h) {
+
+  // vertical line
+  line(fx, y, fx, y+h);
+
+  // base line
+  line(x, y, fx, y);
+
+  // side line
+  line(x, y, fx, y+h);
+
+  //line(x, y, x, y+h); // height line
+}
+
+
+void draw_rectangle() {
+  int y = 150;
+  int w = 200;
+  int h = 200;
+
+  x = mouseX-w/2;
+  int fx = 150; // fixed x at the bottom
+
+  // move to the right only
+  if (x-fx < 3) {  // snap when close to the original square
+    x = fx;
+  }
+  
+  line(x, y, x+w, y);
+
+  // fixed bottom line
+
+  line(fx, y+h, fx+w, y+h);
+
+  // left side
+  line(fx, y+h, x, y);
+
+  // right side
+  line(fx+w, y+h, x+w, y);
+
+
+  if (x != fx) {
+    stroke(color(255, 80, 10));
+    //stroke(200);
+    strokeWeight(2);
+    //draw_triangle(fx, x, y, w, h); // left side
+    triangle(x, y, fx, y, fx, y+h);
+
+    stroke(color(10, 80, 255));
+    triangle(x+w, y, fx+w, y, fx+w, y+h);
+
+    //draw_triangle(fx, x, y, w, h); // right side
+  }
+}
+
+void draw_grid(int w, int h) {
+
+  // draw horizontal lines
+  int x = w;
+  int y = h;
+  while (y < height) {
+    line(0, y, width, y);
+    y = y + h;
+  }
+
+  // draw vertical lines
+  while (x < width) {
+    line(x, 0, x, height);
+    x = x + h;
+  }
+}
+
+</script>
+
+<canvas id="processing-canvas0"> </canvas>
+
